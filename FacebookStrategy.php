@@ -95,8 +95,7 @@ class FacebookStrategy extends OpauthStrategy{
 				'image' => "https://graph.facebook.com/{$this->api_version}/{$me->id}/picture?type=large"
 			),
 			'credentials' => array(
-				'token' => $results->access_token,
-				'expires' => date('c', time() + $results->expires_in)
+				'token' => $results->access_token
 			),
 			'raw' => $me
 		);
@@ -110,7 +109,8 @@ class FacebookStrategy extends OpauthStrategy{
 		/**
 		 * Missing optional info values
 		 * - description
-		 * - phone: not accessible via Facebook Graph API
+		 * - phone - not accessible via Facebook Graph API
+		 * - token expiration - would require a 2nd request per https://developers.facebook.com/docs/facebook-login/access-tokens/debugging-and-error-handling
 		 */
 		$this->callback();
 	}
